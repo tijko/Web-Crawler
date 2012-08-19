@@ -11,8 +11,7 @@ class Crawler:
         count = 0
         for i in self.url:
             try:
-                look_up = urlopen(i)
-                soup = BeautifulSoup(look_up.read())
+                soup = BeautifulSoup(urlopen(i).read())
             except:
                 urllib2.HTTPError or urllib2.URLError or i.ValueError
             links = soup.findAll('a')
