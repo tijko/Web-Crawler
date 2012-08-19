@@ -1,5 +1,5 @@
-import urllib2
-import requests
+from urllib2 import urlopen
+from BeautifulSoup import BeautifulSoup
 from Tkinter import *
 
 class Crawler:
@@ -11,21 +11,19 @@ class Crawler:
         count = 0
         for i in self.url:
             try:
-                look_up = urllib2.urlopen(i)
+                look_up = urlopen(i)
+                soup = BeautifulSoup(look_up.read())
             except:
                 urllib2.HTTPError or urllib2.URLError or i.ValueError
-            data = look_up.readlines()
-            data = str(data)
-            page = '<a href'
-            front = data.find(page)
+            links = soup.findAll('a')
+            for link in links:
+                try:
+                    new = link['href']
+                    if 'http://' in new:
+                        self.url.append(new)
+                except KeyError:
+                    pass
             count += 1
-            while front != -1:
-                front = data.find(page,front)
-                front = data.find('"', front)
-                back = data.find('"', front + 1)
-                check = data[front + 1:back]
-                if 'http://' in check:
-                    self.url.append(check)
             if count > 2:
                 break
         for i in set(self.url):
@@ -64,3 +62,13 @@ class Crawler:
 
 if __name__ == "__main__":
     Crawler().main()
+
+
+
+
+
+
+
+
+
+
