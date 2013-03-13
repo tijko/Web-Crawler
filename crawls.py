@@ -1,4 +1,4 @@
-import urllib2 
+import requests
 from BeautifulSoup import BeautifulSoup
 from Tkinter import *
 
@@ -12,14 +12,14 @@ class Crawler:
         self.entry.delete(0,'end')
         for i in self.url:
             try:
-                soup = BeautifulSoup(urllib2.urlopen(i).read())
+                soup = BeautifulSoup(requests.get(i).content())
                 links = soup.findAll('a')
                 for link in links:
                     new = link['href']
                     if 'http://' in new:
                         self.url.append(new)
             except:
-                urllib2.HTTPError or urllib2.URLError or i.ValueError or UnboundLocalError or KeyError
+                i.ValueError or UnboundLocalError or KeyError
             try:
                 if len(set(self.url)) > int(limit):
                     break
