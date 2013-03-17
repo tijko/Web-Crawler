@@ -69,6 +69,9 @@ class Spider(object):
                         data = data + new_data
                 except TypeError:
                     pass
+                except IndexError:
+                    print 'Sorry no Url\'s'
+                    return
                 pos += 1
         if not kwargs['word'] and not kwargs['count']:
             for i in urls[:kwargs['limit']]:
