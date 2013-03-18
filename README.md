@@ -36,6 +36,7 @@ Which will print out the options available:
       -c, --count  Get a count on the most frequently used words
       -l, --limit  Set a limit on pages crawled
       -u, --url    Limit search to pages with a specific "word" in the url
+      -m, --minus  Skip urls with a specific "word"
 
 You can put a couple of options together:
 
